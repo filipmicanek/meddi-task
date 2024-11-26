@@ -72,7 +72,7 @@ function CustomTabBar({ state, navigation }: BottomTabBarProps) {
 export default function Tabs() {
   return (
     <Tab.Navigator
-      tabBar={(props) => <CustomTabBar {...props} />}
+      tabBar={CustomTabBar}
       screenOptions={() => ({
         headerShadowVisible: false,
         tabBarActiveTintColor: '#14112a',

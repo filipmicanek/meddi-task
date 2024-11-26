@@ -2,11 +2,11 @@ import React from 'react';
 import {
   TouchableOpacity,
   Text,
-  StyleSheet,
   ActivityIndicator,
   ViewStyle,
 } from 'react-native';
 import { colors } from '../theme/colors';
+import { atoms as a } from '../theme/atoms';
 
 interface ButtonProps {
   title: string;
@@ -28,33 +28,26 @@ const Button: React.FC<ButtonProps> = ({
   return (
     <TouchableOpacity
       onPress={onPress}
-      style={[styles.button, style]}
+      style={[
+        a.py_sm,
+        a.px_lg,
+        a.rounded_full,
+        a.align_center,
+        a.justify_center,
+        { backgroundColor: colors.primary },
+        style,
+      ]}
       disabled={isDisabled}
     >
       {isLoading ? (
         <ActivityIndicator size="small" color={colors.secondary} />
       ) : (
-        <Text style={styles.buttonText}>{title}</Text>
+        <Text style={[a.text_md, a.font_bold, { color: colors.secondary }]}>
+          {title}
+        </Text>
       )}
     </TouchableOpacity>
   );
 };
-
-const styles = StyleSheet.create({
-  button: {
-    backgroundColor: colors.primary,
-    paddingVertical: 10,
-    paddingHorizontal: 20,
-    borderRadius: 50,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-
-  buttonText: {
-    color: colors.secondary,
-    fontSize: 16,
-    fontWeight: '600',
-  },
-});
 
 export default Button;

@@ -139,7 +139,7 @@ export const atoms = {
   },
   justify_center: {
     justifyContent: 'center',
-  },
+  } as StyleProp<ViewStyle>,
   justify_between: {
     justifyContent: 'space-between',
   } as StyleProp<ViewStyle>,

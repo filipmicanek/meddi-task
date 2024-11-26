@@ -10,6 +10,7 @@ import {
 } from 'react-native';
 import { MaterialIcons } from '@expo/vector-icons';
 import { colors } from '../theme/colors'; // Import an icon library
+import { atoms as a } from '../theme/atoms';
 
 interface AppTextInputProps extends TextInputProps {
   label?: string;
@@ -23,59 +24,52 @@ const Input = (
   ref: ForwardedRef<TextInput>,
 ) => {
   return (
-    <View style={styles.container}>
-      {label && <Text style={styles.label}>{label}</Text>}
-      <View style={[styles.inputContainer, error && styles.inputError, style]}>
+    <View style={[a.w_full, a.my_sm]}>
+      {label && (
+        <Text style={[a.text_sm, a.mb_xs, { color: colors.label }]}>
+          {label}
+        </Text>
+      )}
+      <View
+        style={[
+          a.flex_row,
+          a.align_center,
+          a.rounded_full,
+          a.px_lg,
+          styles.inputContainer,
+          error && styles.inputError,
+          style,
+        ]}
+      >
         {iconName && (
-          <MaterialIcons name={iconName as any} size={20} style={styles.icon} />
+          <MaterialIcons name={iconName as any} size={20} style={[a.mr_sm]} />
         )}
         <TextInput
           ref={ref}
-          style={[styles.input, style]}
+          style={[a.flex_1, a.text_md, { color: colors.label }, style]}
           placeholderTextColor="#999"
           {...props}
         />
       </View>
-      {error && <Text style={styles.errorText}>{error}</Text>}
+      {error && (
+        <Text style={[a.text_xs, a.mt_xs, styles.errorText]}>{error}</Text>
+      )}
     </View>
   );
 };
 
 const styles = StyleSheet.create({
-  container: {
-    width: '100%',
-    marginVertical: 10,
-  },
-  label: {
-    fontSize: 14,
-    color: colors.label,
-    marginBottom: 5,
-  },
   inputContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
     height: 50,
     borderWidth: 1,
     borderColor: colors.border,
-    borderRadius: 50,
-    paddingHorizontal: 15,
     backgroundColor: colors.background,
-  },
-  input: {
-    flex: 1,
-    fontSize: 16,
-    color: colors.label,
-  },
-  icon: {
-    marginRight: 10,
   },
   inputError: {
     borderColor: colors.error,
   },
   errorText: {
-    marginTop: 5,
     color: colors.error,
-    fontSize: 12,
   },
 });
 

@@ -71,6 +71,7 @@ const Weather = (
 
   const handleCityName = async (name: string) => {
     hideBottomSheet();
+    if (!name.length) return;
     const data = await fetchCity(name);
     if (data) {
       const currentCities = auth.user?.cities ?? [];
