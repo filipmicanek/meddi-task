@@ -62,6 +62,10 @@ export const registerUser = (data: RegisterUserForm) => {
     users = JSON.parse(storageData);
   }
 
+  if (users[data.email]) {
+    return null;
+  }
+
   const userData = { ...data, cities: [] };
 
   users[data.email] = userData;
@@ -126,6 +130,10 @@ export const validateCredentials = (data: LoginUserForm): boolean => {
   const storageData = storage.getString(STORAGE_KEYS.credentials);
   if (!storageData) return false;
   const credentials = JSON.parse(storageData) as Record<string, Credentials>;
+
+  if (!credentials[data.email]) {
+    return false;
+  }
 
   return credentials[data.email].password === data.password;
 };

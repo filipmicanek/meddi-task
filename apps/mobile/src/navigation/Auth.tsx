@@ -17,6 +17,7 @@ import {
   validateCredentials,
 } from '../utils/storage';
 import { colors } from '../theme/colors';
+import { Alert } from 'react-native';
 
 type AuthState = {
   isSignout: boolean;
@@ -97,7 +98,10 @@ export default function Auth() {
     () => ({
       user: state.user,
       signIn: (data: LoginUserForm) => {
-        if (!validateCredentials(data)) return;
+        if (!validateCredentials(data)) {
+          Alert.alert('Chyba!', 'Neplatné přihlašovací údaje');
+          return;
+        }
         const user = getUser(data.email);
         if (!user) return;
 
@@ -110,7 +114,10 @@ export default function Auth() {
       },
       signUp: (data: RegisterUserForm) => {
         const user = registerUser(data);
-        if (!user) return;
+        if (!user) {
+          Alert.alert('Chyba!', 'Uživatel již existuje');
+          return;
+        }
         dispatch({ type: 'SIGN_IN', user });
       },
       updateUser: (data: User) => {
